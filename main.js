@@ -13,7 +13,8 @@ const utils = require("./npm-utils");
 const getPackageVersion = async (packageName, version) => {
   let versions = [];
   try {
-    versions = await utils.getVersionList(packageName);
+    const versionList = await utils.getVersionList(packageName);
+    versions = Array.isArray(versionList) ? versionList : [versionList];
   } catch (e) {
     throw new Error(e.message);
   }
