@@ -13,6 +13,9 @@ const utils = require("./npm-utils");
 const getPackageVersion = async (packageName, version) => {
   try {
     const versionList = await utils.getVersionList(packageName);
+
+    // If there is only a single version, `npm show ${name} versions --json` returns a string. 
+    // This ensures `versions` is always an array, even if there's only one version.
     const versions = Array.isArray(versionList) ? versionList : [versionList];
 
     // Default to the latest version if no specific version is provided
